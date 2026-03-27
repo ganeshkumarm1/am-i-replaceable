@@ -91,15 +91,17 @@ function getRateLimiters() {
 }
 
 export async function POST(req: Request): Promise<Response> {
-  // Rate limiting
-  const ip = extractIp(req);
-  const { minuteLimit, dayLimit } = getRateLimiters();
+  // Skip rate limiting in development
+  if (process.env.NODE_ENV !== "development") {
+    const ip = extractIp(req);
+    const { minuteLimit, dayLimit } = getRateLimiters();
 
-  const minuteResult = await minuteLimit.limit(ip);
-  if (!minuteResult.success) return rateLimitResponse();
+    const minuteResult = await minuteLimit.limit(ip);
+    if (!minuteResult.success) return rateLimitResponse();
 
-  const dayResult = await dayLimit.limit(ip);
-  if (!dayResult.success) return rateLimitResponse();
+    const dayResult = await dayLimit.limit(ip);
+    if (!dayResult.success) return rateLimitResponse();
+  }
 
   // Parse and validate request body
   let body: Partial<AnalyzeRequest>;
