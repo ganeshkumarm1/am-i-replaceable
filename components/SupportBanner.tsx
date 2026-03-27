@@ -35,7 +35,7 @@ export default function SupportBanner() {
         onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
       >
         <span style={{ color: "#c87800", fontSize: "12px", fontWeight: 600, whiteSpace: "nowrap" }}>
-          Support me through
+          Support me
         </span>
         <div style={{ backgroundColor: "#fff", borderRadius: "6px", padding: "2px 6px", display: "flex", alignItems: "center" }}>
           <img
